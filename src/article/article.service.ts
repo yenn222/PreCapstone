@@ -4,11 +4,20 @@ import { db } from '../database/arrayDB';
 import { GetArticleResponseDto } from './dto/get-article.response.dto';
 import { ArticleEntity } from './entity/article.entity';
 import { GetArticlesResponseDto } from './dto/get-articles.response.dto';
+import { CreateArticleResponseDto } from './dto/create-article.response.dto';
 
 @Injectable()
 export class ArticleService {
-  createArticle(dto: CreateArticleRequestDto) {
-    return db.add(dto);
+  createArticle(dto: CreateArticleRequestDto): CreateArticleResponseDto {
+    const articleEntity: ArticleEntity = db.add(dto);
+    const articleResponseDto: CreateArticleResponseDto = {
+      id: articleEntity.id,
+      title: articleEntity.title,
+      content: articleEntity.content,
+      author: articleEntity.author,
+      created_at: articleEntity.created_at,
+    };
+    return articleResponseDto;
   }
 
   getArticle(id: number): GetArticleResponseDto {

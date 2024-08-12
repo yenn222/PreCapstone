@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Res, ParseIntPipe } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Response } from 'express';
-import { ArticleEntity } from './entity/article.entity';
 import { GetArticleResponseDto } from './dto/get-article.response.dto';
 import { GetArticlesResponseDto } from './dto/get-articles.response.dto';
+import { CreateArticleResponseDto } from './dto/create-article.response.dto';
 
 @Controller('article')
 export class ArticleController {
@@ -11,7 +11,7 @@ export class ArticleController {
 
   @Post()
   createArticle(@Body() createArticleDto, @Res() res: Response) {
-    const article: ArticleEntity = this.articleService.createArticle(createArticleDto);
+    const article: CreateArticleResponseDto = this.articleService.createArticle(createArticleDto);
     res.status(HttpStatus.CREATED).json(article);
   }
 
