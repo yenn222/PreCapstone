@@ -20,10 +20,10 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'semi': ['error', 'always'], // 세미콜론 강제
-    'quotes': ['error', 'single'], // '' 강제
-    'object-curly-spacing': ['error', 'always'], // 내부 스페이스바 강제
-    'comma-dangle': ['error', 'always-multiline'], // 콤마 강제
-    'indent': ['error', 2] // 인덴트 2
+    '@typescript-eslint/semi': ['error', 'always'],
+    '@typescript-eslint/quotes': ['error', 'single'],
+    '@typescript-eslint/object-curly-spacing': ['error', 'always'],
+    '@typescript-eslint/comma-dangle': ['error', 'always-multiline'],
+    '@typescript-eslint/indent': ['error', 2],
   },
 };
