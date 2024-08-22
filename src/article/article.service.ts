@@ -147,4 +147,17 @@ export class ArticleService {
     }
     return articleResponseDto;
   }
+
+  /**
+   * 게시글을 삭제합니다.
+   * 
+   * @param id 삭제할 게시글의 ID
+   * @throws NotFoundException 게시글이 존재하지 않을 때
+  */
+  delete(id: number): void {
+    const articleEntity: ArticleEntity = db.remove(id);
+    if (!articleEntity) {
+      throw new NotFoundException('게시글이 존재하지 않습니다.');
+    }
+  }
 }

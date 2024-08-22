@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, ParseIntPipe, Query, Patch } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Res, ParseIntPipe, Query, Patch, Delete } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { Response } from 'express';
 import { GetArticleResponseDto } from './dto/get-article.response.dto';
@@ -41,5 +41,11 @@ export class ArticleController {
     const article: UpdateArticleResponseDto = this.articleService.update(articleid, updateArticleDto);
 
     res.status(HttpStatus.OK).json(article);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', new ParseIntPipe()) articleid: number, @Res() res: Response) {
+    this.articleService.delete(articleid);
+    res.status(HttpStatus.OK).send();
   }
 }

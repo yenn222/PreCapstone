@@ -26,6 +26,16 @@ const findById = (id: number): ArticleEntity => {
   return articles.find(article => article.id === id);
 };
 
+const remove = (id: number): ArticleEntity => {
+  const index: number = articles.findIndex(article => article.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const target: ArticleEntity = articles[index];
+  articles.splice(index, 1);
+  return target;
+}
+
 const update = (id: number, dto: UpdateArticleRequestDto): ArticleEntity => {
   const article: ArticleEntity = findById(id);
   if (!article) {
@@ -53,6 +63,7 @@ const dummyInit = () => {
 export const db = {
   add,
   findById,
+  remove,
   update,
   getAll,
   dummyInit,
