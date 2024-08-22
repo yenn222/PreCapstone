@@ -1,5 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { CreateArticleRequestDto } from 'src/article/dto/create-article.request.dto';
+import { UpdateArticleRequestDto } from 'src/article/dto/update-article.request.dto';
 import { ArticleEntity } from 'src/article/entity/article.entity';
 
 const articles: ArticleEntity[] = [];
@@ -25,6 +26,16 @@ const findById = (id: number): ArticleEntity => {
   return articles.find(article => article.id === id);
 };
 
+const update = (id: number, dto: UpdateArticleRequestDto): ArticleEntity => {
+  const article: ArticleEntity = findById(id);
+  if (!article) {
+    return null;
+  }
+  article.title = dto.title;
+  article.content = dto.content;
+  article.updated_at = new Date();
+  return article;
+};
 
 const getAll = (): ArticleEntity[] => {
   return articles;
@@ -42,6 +53,7 @@ const dummyInit = () => {
 export const db = {
   add,
   findById,
+  update,
   getAll,
   dummyInit,
 };

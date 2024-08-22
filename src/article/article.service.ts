@@ -5,6 +5,8 @@ import { GetArticleResponseDto } from './dto/get-article.response.dto';
 import { ArticleEntity } from './entity/article.entity';
 import { GetArticleListResponseDto } from './dto/get-article-list.response.dto';
 import { CreateArticleResponseDto } from './dto/create-article.response.dto';
+import { UpdateArticleResponseDto } from './dto/update-article.response.dto';
+import { UpdateArticleRequestDto } from './dto/update-article.request.dto';
 
 @Injectable()
 export class ArticleService {
@@ -120,5 +122,29 @@ export class ArticleService {
       return 0;
     }
     return Math.ceil(allArticles.length / perPage);
+  }
+
+  /**
+   * 게시글을 수정합니다.
+   * 
+   * @param id 수정할 게시글의 ID
+   * @param dto 수정할 게시글의 정보
+   * @returns 수정된 게시글의 정보
+   * @throws NotFoundException 게시글이 존재하지 않을 때
+  */
+  update(id: number, dto: UpdateArticleRequestDto): UpdateArticleResponseDto {
+    const articleEntity = db.update(id, dto);
+    if (!articleEntity) {
+      throw new NotFoundException('게시글이 존재하지 않습니다.');
+    }
+
+    const articleResponseDto: UpdateArticleResponseDto = {
+      id: articleEntity.id,
+      title: articleEntity.title,
+      content: articleEntity.content,
+      author: articleEntity.author,
+      updated_at: articleEntity.updated_at,
+    }
+    return articleResponseDto;
   }
 }
